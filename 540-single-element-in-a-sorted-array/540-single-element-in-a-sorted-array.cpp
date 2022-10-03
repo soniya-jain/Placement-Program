@@ -1,14 +1,17 @@
 class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
-        int n=nums.size();
-        unordered_map<int,int>mp;
-        for(int i=0; i<n; i++){
-            mp[nums[i]]++;
+        // Using Binary Search 
+        int start = 0;
+        int end = nums.size()-1;
+        int mid;
+        while(start < end){
+            mid = (start + end) / 2;
+            if((mid%2 == 0 && nums[mid] == nums[mid+1])|| (mid%2 == 1 && nums[mid] == nums[mid-1]))
+                start = mid + 1;
+            else 
+                end = mid; 
         }
-        for(auto it: mp){
-            if(it.second==1) return it.first;
-        }
-        return -1;
+        return nums[start];
     }
 };
